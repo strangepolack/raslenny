@@ -1,0 +1,40 @@
+#########################################################
+# This is the file with commands for initiating your RasPbx box.
+# Lines starting with a hash "#" are disregarded; they are just comments in Linux.
+# Some lines may contain 2 hashes inside, that separate text blocks.
+# That is meaningful!!!
+# These lines will be treated as having the following structure: "command#question#answer".
+# They are for interactive commands.
+# Meaning, commands asking during the installation questions like "Do you want to continue? [Y/n]"
+# And that happens somewhere in the middle of the process.
+# These lines are for auto answering such questions.
+# Other lines not starting with a "#" are normal Linux commands.
+# The script using these command may be ran from time to time, in order to upgrade your pbx box.
+# Even though some packets may be already in place, they will be just replaced or upgraded.
+#########################################################
+#
+# Install needed Linux modules
+apt -y install python3-pip
+apt -y install ffmpeg libavcodec-extra
+apt -y install dos2unix
+apt -y install telnet
+apt -y install zip
+apt -y install net-tools
+apt -y install netplan
+apt -y install dnsutils
+#
+# Change python from an obsolete version 2.x to the current 3.x
+rm /usr/bin/python
+ln -s /usr/bin/python3.7 /usr/bin/python
+rm /usr/bin/pip
+ln -s /usr/bin/pip3 /usr/bin/pip
+#
+# Install needed Python modules
+pip install mysql mysql-connector-python-rf
+pip install netaddr iptools netifaces
+pip install natsort
+pip install asterisk-ami
+pip install rich
+#pip install python-crontab
+#pip install varname
+#

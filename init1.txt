@@ -1,0 +1,21 @@
+#########################################################
+# This is the file with commands for initiating your RasPbx box.
+# Lines starting with a hash "#" are disregarded; they are just comments in Linux.
+# Some lines may contain 2 hashes inside, that separate text blocks.
+# That is meaningful!!!
+# These lines will be treated as having the following structure: "command#question#answer".
+# They are for interactive commands.
+# Meaning, commands asking during the installation questions like "Do you want to continue? [Y/n]"
+# And that happens somewhere in the middle of the process.
+# These lines are for auto answering such questions.
+# Other lines not starting with a "#" are normal Linux commands.
+# The script using these command may be ran from time to time, in order to upgrade your pbx box.
+# Even though some packets may be already in place, they will be just replaced or upgraded.
+#########################################################
+# Additional commands to make it working for some (possibly demanding) components:
+########
+wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+apt update --allow-releaseinfo-change
+# Note: the below is a line for an interactive command.
+raspbx-upgrade#Do you want to continue? [Y/n]#y
+#
