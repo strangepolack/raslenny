@@ -14,3 +14,4 @@ else:
         print('how_many_dialogs=', elem.how_many_dialogs)
         print('jump=', elem.jump)
         print('background=', elem.background)
+
