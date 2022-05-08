@@ -1,21 +1,9 @@
 #!/usr/bin/python
-# print('=', )
 import sys
-#lib_mysql
-# No '*.pyc' precompiled files
-sys.dont_write_bytecode = True
+sys.dont_write_bytecode = True  # No '*.pyc' precompiled files
 import mysql.connector
 from mysql.connector import Error
-# from lib_parameters import lenny_dir_on_pc
-# from lib_parameters import asterisk_dir
-# from lib_parameters import db_user
-# from lib_parameters import db_password
-# from lib_parameters import localhost
-# from lib_parameters import asterisk_db
-# from lib_parameters import sip_table
 
-# def atest():
-#     print('aaaa test')
 
 class MySqlConnector:
     '''
@@ -161,7 +149,6 @@ class MySqlConnector:
         '''
         query_ending = '' if condition in ('', None) else ' WHERE ' + str(condition)
         try:
-            # sql_command = 'DELETE FROM '  + self.database + '.' + table + ' WHERE ' + str(condition)
             sql_command = 'DELETE FROM ' + self.database + '.' + table + query_ending
             print('Executing the SQL query:', sql_command)
             self.db_cursor.execute(sql_command)
@@ -171,15 +158,8 @@ class MySqlConnector:
             print('Error deleting the records:')
             print(e)
 
-# mydb = MySqlConnector(database='asterisk', db_user='db_user', db_password='db_password', host='localhost')
-# mydb = MySqlConnector(database='asterisk', db_user=db_user, db_password=db_password, host='localhost')
-# mydb.connect()
-# res=mydb.select_from_table(table='sip', column='*', condition='')
-# mydb.disconnect()
-# print(res)
 
-
-# def main():
-#     print('This is a library for DB operations.')
-# if __name__ == '__main__':
-#     main()
+def main():
+    print('This is a library for DB operations.')
+if __name__ == '__main__':
+    main()

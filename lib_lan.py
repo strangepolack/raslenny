@@ -1,7 +1,7 @@
 import sys
 sys.dont_write_bytecode = True  # No '*.pyc' precompiled files
 from rich import print
-# print('=', )
+
 
 import os
 import iptools
@@ -10,9 +10,6 @@ from netaddr import IPAddress, IPNetwork
 from ipaddress import ip_network, IPv4Network
 from ipaddress import (AddressValueError, NetmaskValueError)
 import re
-
-# from scripts.lib_main import file_to_list, list_to_file
-# from lib_main import ListOps
 
 
 def validate_subnet(ip):
@@ -99,10 +96,8 @@ def ip_from_net_addr(net_addr):
                 172.16.2.0
     '''
     subnet = str(IPv4Network(net_addr, strict=False).network_address)
-    # maskbits = str(
-    #     IPAddress(str(IPv4Network(net_addr, strict=False).netmask)).netmask_bits()
-    # )
     return subnet
+
 
 def maskbits_from_net_addr(net_addr):
     '''
@@ -116,7 +111,6 @@ def maskbits_from_net_addr(net_addr):
                 the result maskbits = 24
                 if the octet netmask is: 255.255.255.0 
     '''
-    # subnet = str(IPv4Network(ip_plus_nm, strict=False).network_address)
     maskbits = str(
         IPAddress(str(IPv4Network(net_addr, strict=False).netmask)).netmask_bits()
     )
@@ -124,10 +118,6 @@ def maskbits_from_net_addr(net_addr):
 
 def main():
     print('This is the lan library.')
-    #print(maskbits_from_net_addr('1.1.1.1/24'))
-    #print(maskbits_from_net_addr('1.1.1.1/255.255.128.0'))
-    #print(ip_from_net_addr('10.10.10.10/255.255.0.0'))
-    #print(ip_from_net_addr('172.16.2.1/24'))
 
 
 if __name__ == '__main__':

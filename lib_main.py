@@ -157,9 +157,9 @@ class ListOps:
         ):
             if verbose == True:
                 print('----')
-                xprint('Found regs[', index_regs, ']:')
+                print('Found regs[', index_regs, ']:')
                 print(regs[index_regs])
-                xprint('Found str(sequence[', index_sequence, ']):')
+                print('Found str(sequence[', index_sequence, ']):')
                 print(str(self.sequence[index_sequence]))
             if (
                 len(regs[index_regs]) != 0
@@ -224,9 +224,7 @@ class ListOps:
         temp_sequence = [item for item in self.sequence if re.findall(str(pattern), str(item)) == []]
         del self.sequence
         self.sequence = temp_sequence
-        # print('now self.sequence=', self.sequence)
         return self.sequence
-
 
 
     def del_sublist(self, starting=None, ending=None, verbose=False):
@@ -258,7 +256,6 @@ class ListOps:
                     print('Deleting element:', self.sequence[starting], sep='')
                 del self.sequence[starting]
                 index += 1
-            # return 'Deletion succeeded!'
             return 'Deletion succeeded!'
         else:
             print('No elements were selected and deleted from the list.')
@@ -268,9 +265,7 @@ class ListOps:
             print('----------------')
 
     def insert_sublist(self, starting, sublist, verbose=False):
-    # def insert_sublist(sequence, starting, sublist, verbose=False):
         ''' It inserts a sublist into the original list.
-
         Args:
             sequence (list):  The original list.
             starting (int): Right before this index, the sublist will be inserted.
@@ -283,7 +278,7 @@ class ListOps:
         if starting < 0:
             starting = len(self.sequence)
         for elem in sublist:
-            if verbose == True:
+            if verbose is True:
                 print('element>>', elem, '<<will be inserted into line number:', starting + index)
             self.sequence.insert(starting + index, elem)
             index += 1
@@ -321,9 +316,10 @@ class ListOps:
         #     body = []
         if '0' == '1':
             pass
-        # elif len(head) == 0 or len(body) == 0 or len(tail) == 0:
         elif len(head) == 0 or len(tail) == 0 or len(self.sequence) == 0:
-            print('No head, no tail or no valid input. Nothing will be inserted or deleted!')
+            print(
+                'No head, no tail or no valid input. Nothing will be inserted or deleted!'
+            )
         else:
             end_of_head = self.regs_vs_list(
                 regs=head,
@@ -342,17 +338,14 @@ class ListOps:
                 print('Head overlaps with tail. Wrong input data. Nothing will be deleted.')
             elif end_of_head + 1 == start_of_tail:
                 pass
-                # print('Tail begins right after head. It is OK but nothing to delete.')
             else:
                 self.del_sublist(
-                    # sequence=sequence,
                     starting=end_of_head+1,
                     ending=start_of_tail-1,
                     verbose=verbose
             )
-        # return sequence
 
-    # def insert_body(sequence, head=None, tail=None, body=None, verbose=False):
+
     def insert_body(self, head=None, tail=None, body=None, verbose=False):
         ''' Add a new section to the list after the head and before the tail.
         If a list from a text file contains several elements matching head regexes.
@@ -375,7 +368,6 @@ class ListOps:
             body (list): Items to be deleted from between head and tail
         '''
         self.del_body(head=head, tail=tail, verbose=verbose)
-        #regs_vs_list(self, regs, start_elem=0, first=True, verbose=False)
         end_of_head = self.regs_vs_list(
             regs=head,
             start_elem=0,
@@ -392,14 +384,7 @@ class ListOps:
         :return: None
         '''
         sequence = self.file_to_list(filename=filename)
-        # regs = []
-        # regs.append(line_to_remove)
-        # xprint('=', )
-        # xprint('in seq=', seq)
         sequence = self.del_matching_items(pattern=line_to_remove)
-        # xprint('in line_num=', line_num)
-        # ListOps(seq).del_sublist(starting=line_num, ending=line_num, verbose=True)
-        # print('now2 sequence=', sequence)
         ListOps(sequence).list_to_file(filename=filename)
 
 
@@ -418,7 +403,6 @@ def string_vs_regs(regs, string):
         if re.findall(reg, string) != []:
             matches.append(index)
     return matches
-
 
 
 class AlterFileSection:
@@ -500,7 +484,6 @@ def list_to_string(input):
 
 def transform_string(
         input='',
-        # transform=True,
         add_line_begin=False,
         add_line_end=False,
         escaped='$?()[].*'
@@ -527,10 +510,6 @@ def transform_string(
             of the line may be added.
             This depends from: add_line_begin add_line_end)
     '''
-    # if '0' == '1':
-    #     pass
-    #
-    # else:
     def esc_str(input_str):
         '''
         Sub-function.
@@ -560,7 +539,7 @@ def transform_string(
 
 
 def os_command(command):
-    '''Executes an OS command.
+    ''' Executes an OS command.
 
     Args:
         command (str): An OS command to execute.

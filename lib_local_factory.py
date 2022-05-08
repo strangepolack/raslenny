@@ -315,9 +315,6 @@ def factory(klass=None):
 
 
 
-
-
-
     list_klasses = []
     list_klasses.append(Exit)
     list_klasses.append(Reboot)
@@ -362,7 +359,7 @@ def factory(klass=None):
 
 def main():
     print('Library with commands to execute on the remote host.')
-    print(factory())
+
 
 
 if __name__ == '__main__':

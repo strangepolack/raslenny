@@ -22,7 +22,6 @@ def ip_static_net_files(ip_host=None, netmask=None, ip_gw=None, dnses=None):
         dnses is not None
     ):
         # Reset the current IP settings first.
-        # ip_auto(dhcp_file, line_in_dhcp_file, interface_file)  # potential problem
         net_conf_lines = []
         net_conf_lines.append('auto eth0')
         net_conf_lines.append('iface eth0 inet static')
@@ -36,10 +35,8 @@ def ip_static_net_files(ip_host=None, netmask=None, ip_gw=None, dnses=None):
         os.system('echo' + ' ' + line_in_dhcp_file + ' ' + '>>' + ' ' + dhcp_file)
 
 
-
 def main():
     print('File contains functions to assign static ip settings to your RPi host.')
-
 
 
 if __name__ == '__main__':

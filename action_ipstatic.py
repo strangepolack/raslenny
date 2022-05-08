@@ -1,8 +1,6 @@
 #!/usr/bin/python
 import sys
 sys.dont_write_bytecode = True  # no '*.pyc' precompiled files
-# print('=', )
-
 import re
 import ipaddress
 from netaddr import IPAddress, IPNetwork
@@ -12,14 +10,11 @@ import os
 from lib_parameters import prompt_ip_setings_ready
 from lib_parameters import banned_netmasks
 from lib_parameters import prompt_gw_ip
-
 from lib_lan import subnet_with_bits
 from lib_lan import validate_ip
 from lib_lan import validate_netmask
 from lib_lan import check_sn_bc
-
 from doipauto import ip_auto
-
 from action_on_net_conf_files import ip_static_net_files
 
 
@@ -37,7 +32,6 @@ def input_ip_settings():
         'not_in_range': 'The entered IP is not in the valid range.',
         'eq_net': 'The IP entered is the same as its subnet\'s address itself, hence cannot be accepted.',
         'eq_broadcast': 'The IP entered is the same as its subnet\'s broadcast address, hence cannot be accepted.',
-        # 'test': 'test',
         'ip_eq_gw': 'The IP address of your Rasberry Pi cannot be the same as the IP of your Gateway.',
         'dns_invalid': 'The entered DNS Server(s) setting are invalid',
         'dns_eq_host': 'The DNS Server(s) IP cannot be the same as the one of your Rpi.',
@@ -84,7 +78,6 @@ def input_ip_settings():
 
     if exit_code is None:
 
-        # disabled for tests
         dnses = input('Input IP(s) of the DNS server(s), eg. "8.8.8.8 9.9.9.9":')
         ls_dnses = dnses.split(' ')
 

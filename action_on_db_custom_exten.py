@@ -1,12 +1,9 @@
 #!/usr/bin/python
 import sys
 sys.dont_write_bytecode = True  # No '*.pyc' precompiled files
-# print('=', )
-
 database = 'asterisk'
 table = 'kvstore_FreePBX_modules_Customappsreg'
 host = 'localhost'
-
 
 from lib_mysql import MySqlConnector
 from lib_parameters import db_user
@@ -89,7 +86,6 @@ class CustExtsDb:
         self.add_last_record_to_db(index)
 
 
-
 def del_cust_ext_from_db():
     CustExtsDb(
         host=host,
@@ -102,7 +98,6 @@ def del_cust_ext_from_db():
 
 def add_cust_ext_to_db(list_custom_extens):
     names_of_custom_extens = [item.ext_name for item in list_custom_extens]
-    # names_of_custom_extens = []
     CustExtsDb(
         host=host,
         db_user=db_user,

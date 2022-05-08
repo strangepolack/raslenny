@@ -1,28 +1,23 @@
 #!/usr/bin/python
-# print('=', )
 import sys
-sys.dont_write_bytecode = True  # no '*.pyc' precompiled files
+sys.dont_write_bytecode = True  # No '*.pyc' precompiled files
 import os
 import re
 import platform
 import natsort
-
 from lib_main import ListOps
 from lib_main import string_vs_regs
 from lib_main import append_if_not_in
-
 from lib_parameters import sounds_main_dir
 from lib_parameters import path_to_ffmpeg
 from lib_parameters import path_to_ffmpeg_on_pc
 from lib_parameters import local_audio_folder
 
-# test:
 if 'Linux' not in platform.system():
     sounds_main_dir = local_audio_folder
 
 jump_line_start = '^jump='
-jump_line_end = '[1-9][0-9]?$'  # So jump value must be 1-99
-
+jump_line_end = '[1-9][0-9]?$'  # So 'jump' value must be 1-99
 
 # Common audio file formats
 common_audio_file_exten = '(m4a|mp3|wav)'
@@ -77,13 +72,6 @@ def settings_file_patterns(ext_name):
     patterns.append('^' + 'Settings'                    + '\.txt' + '$')
     patterns.append('^' + 'settings'                    + '\.txt' + '$')
     return patterns
-
-
-# def createulaw(input, output):
-#     os.system(path_to_ffmpeg + ' -y -i ' + input +
-#         ' -af "highpass=f=300, lowpass=f=3400" -ar 8000 -ac 1 -ab 64k -f mulaw '
-#         + output)
-
 
 
 class AudioSubDir:
@@ -188,7 +176,6 @@ class AudioSubDir:
             regs=[jump_line_start + jump_line_end]
         )
         if no_of_line == None:
-            # return 0
             return None
         else:
             jump = int(re.sub(jump_line_start, '', list_setts[no_of_line]))
@@ -226,10 +213,7 @@ class AudioSubDir:
         return output_list
 
     def _check_order(self, ext_name, list_of_files):
-        ''' Checks if the filenames are consecutive.
-            Good to check the final ulaw dialog files.
-            Eg. 'Lenny1.ulaw', 'Lenny2.ulaw', 'Lenny4.ulaw', 'Lenny5.ulaw'
-            The above is incorrect.
+        ''' Checks if the file names are consecutive.
         '''
         result = True
         for index, filename in enumerate(list_of_files):
@@ -249,18 +233,15 @@ class AudioSubDir:
         self.valid = True
 
         if len(self.ulaw_audio_dialog_files) == 0:
-            #print('The extension:', self.dir_name, 'is not valid. ', 'No ulaw dialog files')
             self.valid = False
 
         if self._check_order(
             ext_name=self.dir_name,
             list_of_files=self.ulaw_audio_dialog_files
             ) is False:
-            #print('The extension:', self.dir_name, 'is not valid. ', 'The name of the ulaw dialog files are non consecutive.')
             self.valid = False
 
         if self.final_ulaw_background_file is None:
-            #print('The extension:', self.dir_name, 'is not valid. ', 'No final ulaw background file was found.')
             self.valid = False
 
         return self.valid
@@ -273,9 +254,6 @@ class AudioSubDir:
         a default value is returned.
         '''
         jump = None
-        # settings_files_list = self.settings_files
-        # print('*************settings_files_list=', settings_files_list)
-        # ext_name = self.dir_name
         how_many_dialogs = len(self.ulaw_audio_dialog_files)
 
 
@@ -300,15 +278,7 @@ class AudioSubDir:
         if how_many_dialogs in (0, 1) or len(self.settings_with_jumps) == 0:
             jump = _defult_jump_val()
 
-        # There are no files with settings
-        # elif len(self.settings_with_jumps) == 0:
-        #     jump = _defult_jump_val()
-
         else:
-        # elif len(self.settings_with_jumps) > 0:
-            # print('in loop----')
-            # index = 0
-            # while index < len(self.settings_with_jumps) and jump is None:
             for item in self.settings_with_jumps:
                 if item['jump'] is not None:
                     if item['jump'] <= how_many_dialogs:
@@ -339,14 +309,12 @@ class AudioSubDir:
                             seq=self.settings_files,
                             item=sub_obj.name
                             )
-                    # obj is a common audio file (dialog or background)
                     elif re.findall(common_audio_file_exten, sub_obj.name):
                         regs = bckgrds_file_patts(
                             ext_name=self.dir_name,
                             re_end=common_audio_file_exten
                             )
 
-                        # common audio background file
                         if (
                             string_vs_regs(
                             regs=regs, string=str(sub_obj.name)) != []
@@ -355,15 +323,12 @@ class AudioSubDir:
                                 seq=self.common_audio_background_files,
                                 item=sub_obj.name)
 
-                        # common audio dialog file (non background)
                         else:
                             append_if_not_in(
                                 seq=self.common_audio_dialog_files,
                                 item=sub_obj.name
                                 )
 
-                    # obj is a ulaw audio file (dialog or background)
-                    # elif str(sub_obj.name).endswith('.ulaw'):
                     elif sub_obj.name.endswith('.ulaw'):
                         if os.path.isfile(
                             os.path.join(
@@ -379,7 +344,6 @@ class AudioSubDir:
                                     sub_obj.name.replace(' ', '_'))
                                 )
 
-                        # ulaw background file
                         if string_vs_regs(
                             regs=bckgrds_file_patts(
                                 ext_name=str(self.dir_name),
@@ -450,7 +414,6 @@ class AudioSubDir:
         if len(self.ulaw_audio_background_files) > 0:
             self.final_ulaw_background_file = self.ulaw_audio_background_files[0].rstrip(
                 '.ulaw')
-            # self.final_ulaw_background_file = self.ulaw_audio_background_files[0]
         self.final_check()
 
 
@@ -472,6 +435,7 @@ class AudioSubDir:
                 os.remove(current_file)
         self.evaluate()
 
+
     def del_background_ulaws(self):
         self.evaluate()
         for filename in self.ulaw_audio_background_files:
@@ -481,11 +445,6 @@ class AudioSubDir:
                 os.remove(current_file)
         self.evaluate()
 
-
-        # for file in self.ulaw_audio_background_files:
-        #     os.remove(os.path.join(self.current_dir) + os.sep + file)
-        #     self.evaluate()
-        self.evaluate()
 
     def makeulaws(self):
         '''
@@ -505,10 +464,8 @@ class AudioSubDir:
         '''
         self.evaluate()
         if len(self.common_audio_dialog_files) > 0:
-            # print('deleting ulaws!!!!!!!!!!!!!!!!!!!!!!!!')
             self.del_dialog_ulaws()
             self.ulaw_audio_dialog_files = []
-            # print('stop')
             for index, filename in enumerate(self.common_audio_dialog_files):
                 newfilename = self.dir_name + str(index + 1) + '.ulaw'
                 # '"' is to embrace filenames with spaces
@@ -555,9 +512,7 @@ class AudioMainDir:
     '''
     def __init__(self):
         self.sounds_main_dir = sounds_main_dir
-        # self.list_audiosubdirs = []
         self.list_audiosubdirs = self.enumerate_subdirs()
-        # self.semi_final_list = []
         self.list_final_extensions = []
 
     def enumerate_subdirs(self):
@@ -608,8 +563,7 @@ class AudioMainDir:
                     ))
         return self.list_final_extensions
 
-###################################################################################
-###################################################################################
+
 class FinalExtension:
     ''' This class will be passed to the script,
         that writes settings to asterisk config files and dbs.

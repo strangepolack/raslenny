@@ -1,10 +1,6 @@
 #!/usr/bin/python
-# print('=', )
 import sys
-# no '*.pyc' precompiled files
-sys.dont_write_bytecode = True
-
-
+sys.dont_write_bytecode = True  # no '*.pyc' precompiled files
 
 from lib_mysql import MySqlConnector
 from lib_parameters import asterisk_dir
@@ -13,15 +9,9 @@ from lib_parameters import db_user
 from lib_parameters import db_password
 from lib_parameters import dbs_to_dump
 from lib_main import ListOps
-# from lib_parameters import localhost
-# from lib_parameters import asterisk_db
-# from lib_parameters import sip_table
+from lib_parameters import dbs_dump_file
 
 host = 'localhost'
-
-from lib_parameters import dbs_dump_file
-# file_aster_tables = lenny_dir + 'aster_tables.txt'
-
 
 def show_tables():
     all_dbs_results = []
@@ -31,25 +21,16 @@ def show_tables():
         connection_to_database.connect()
         all_dbs_results.append('*' * 10 + 'DATABASE:' + database + '*' * 60)
         results = connection_to_database.custom_sql_query(
-            query="SHOW TABLES FROM " + database)
-        # print('*-*-*-*-tables:\n', tables)
-        # print('*-*-*-*-tables:\n', tables)
-        # results = connection_to_database.custom_sql_query(
-        #     query="SHOW COLUMNS FROM "+ 'asterisk.trunks')[0]
-        # print('*-*-*-*-results:\n', results)
-        # As the results is a list of tuples.
+                        query="SHOW TABLES FROM " + database
+        )
+        # As the result is a list of tuples.
         tables = [result[0] for result in results]
-        # for item in results:
         for table in tables:
-            # table = item[0]
             print('-' * 24)
             all_dbs_results.append('-' * 24)
-            print("table:", table)
-            # table = (item[0])
             print('TABLE:', table)
             all_dbs_results.append('')
             all_dbs_results.append('TABLE:' + str(database) + '.' + str(table))
-            # all_dbs_results.append('-' * 4)
             all_dbs_results.append('--Columns:')
             result_records = connection_to_database.custom_sql_query(
                 'SHOW COLUMNS FROM ' + database + '.' + table)
@@ -66,10 +47,6 @@ def show_tables():
                 all_dbs_results.append(str(elem))
             all_dbs_results.append('-' * 24)
             print('=' * 10)
-        # for result in results:
-        #     print('-' * 10)
-        #     print("result:", result)
-        #     print('-' * 5)
         connection_to_database.disconnect()
         print('*' * 70)
         all_dbs_results.append('*' * 70)
@@ -82,6 +59,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-

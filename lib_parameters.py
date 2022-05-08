@@ -4,16 +4,15 @@
 import sys
 sys.dont_write_bytecode = True  # No '*.pyc' precompiled files
 import os
-EMPTIES = ('', [], (), {}, set(), None)
+import socket
 
 # This is a library for storing various (mainly constant) values, usernames,
 # directory or file names, etc.
 # Also: file headers, extensions, trunk names, sip settings, etc.
-import sys
-# import platform
-import socket
+
 
 local_lenny_dir = 'D:\\raslenny\\'
+EMPTIES = ('', [], (), {}, set(), None)
 
 
 hostname_prefix = 'raslenny'
@@ -34,37 +33,31 @@ net_script   = 'changeip.py'
 comm_set_hostname = 'hostnamectl set-hostname ' + full_hostname
 lenny_dir = '/opt/' + hostname_prefix + '/'
 comm_make_lenny_dir = 'mkdir -p ' + lenny_dir
-# comm_make_lenny_dir = 'mkdir -p ' + '/opt/' + hostname_prefix + '/'
-
-# Files with commands for initialization
 
 # Folder where subfolders with custom audio dialog and background files are located.
-# sounds_main_dir = '/var/lib/asterisk/sounds/en/'
 sounds_main_dir = '/var/lib/asterisk/sounds/custom/'
 
-#call recordings location
 local_recordings_dir = local_lenny_dir + 'recordings' + '\\'
+
+# Call recordings location
 recordings_dir = "/var/spool/asterisk/monitor/"
+
 etc_dir = '/etc/'
 asterisk_dir = '/etc/asterisk/'
 path_to_ffmpeg = 'ffmpeg'
-# path_to_ffmpeg = path_to_ffmpeg_on_rpi
-
 
 # Dialog/background audios to be sent to rpi from this dir
 local_audio_folder = local_lenny_dir + 'audios' + '\\'
 
-# Result recordings to be downloaded to this dir
 
 local_test_dir = local_lenny_dir + 'tests\\'
 path_to_ffmpeg_on_pc = 'C:\Programs\\ffmpeg\\bin\\ffmpeg.exe'
-
 
 dhcp_file = '/etc/dhcpcd.conf'
 interface_file = '/etc/network/interfaces.d/eth0'
 line_in_dhcp_file = 'denyinterfaces eth0'
 
-exten_num = '33'       # This is your initial extension number.
+exten_num = '33'  # This is your initial extension number.
 
 # Do not edit the parameters below.
 # This will not work, due to the salted hash!
@@ -73,7 +66,6 @@ exten_pass = 'password'  # This is the password for your initial
 # The below must was calculated by the FreePBX, do not edit it!
 exten_pass_hash = '$2a$08$iviEUwg.WoZN0VREhWEbjONRKIXj1s9lLXJi9iz6wkDfTKvfnptR.'
 
-#############################################
 web_admin_name = 'webadmin'
 # The pass is: 'webpass' but it is not used in the db, only its hash (below) is.
 # Hash for the webadmin's  pass:
@@ -109,9 +101,6 @@ report_file     = 'aa_report_file.txt'
 file_recordings = 'dodeldialogs.py'
 file_addcustoms = 'doaddcustoms.py'
 file_delcustoms = 'dodelcustoms.py'
-# shutdown_commands = ('poweroff', 'shutdown -s now', 'halt', 'systemctl isolate poweroff')
-# reboot_commands = ('reboot', 'shutdown -r now', 'systemctl isolate reboot')
-
 
 # Config files to download for tshooting purposes
 files_to_download = []
@@ -133,15 +122,8 @@ files_to_download.append(asterisk_dir + 'sip_general_additional.conf')
 dbs_to_dump = []
 dbs_to_dump.append('asterisk')
 
-# DBs below are commented for purpose.
-# dbs_to_dump.append('asteriskcdrdb')
-# dbs_to_dump.append('information_schema')
-# dbs_to_dump.append('mysql')
-# dbs_to_dump.append('performance_schema')
-
 # Script files that should be transferred from pc to raspberry.
 files_to_put = []
-# files_to_put.append(local_lenny_dir + '')
 files_to_put.append(local_lenny_dir + adjust_file)
 files_to_put.append(local_lenny_dir + file_make_ulaws)
 files_to_put.append(local_lenny_dir + 'action_ipstatic.py')  # Leave it
@@ -150,7 +132,6 @@ files_to_put.append(local_lenny_dir + 'action_on_db_custom_exten.py')
 files_to_put.append(local_lenny_dir + 'action_on_net_conf_files.py')
 files_to_put.append(local_lenny_dir + 'action_on_sound_files_custom_exten.py')
 files_to_put.append(local_lenny_dir + 'dodeldialogs.py')
-
 files_to_put.append(local_lenny_dir + file_addcustoms)
 files_to_put.append(local_lenny_dir + file_delcustoms)
 files_to_put.append(local_lenny_dir + 'doipauto.py')
@@ -161,15 +142,9 @@ files_to_put.append(local_lenny_dir + file_initwebuser)
 files_to_put.append(local_lenny_dir + 'lib_main.py')
 files_to_put.append(local_lenny_dir + 'lib_mysql.py')
 files_to_put.append(local_lenny_dir + 'lib_lan.py')
-
 files_to_put.append(local_lenny_dir + 'lib_parameters.py')
 
-
-
-
-
-
-# Prompt to provide further IP settings
+# Prompts to provide further IP settings
 prompt_dns_setts = []
 prompt_dns_setts.append('----------------')
 prompt_dns_setts.append('You need to provide the IP adress(es) of the DNS server(s).')
@@ -177,23 +152,13 @@ prompt_dns_setts.append('You can provide one or two custom IP address(es) of the
 prompt_dns_setts.append('If you provide two IPs, they should be separated by space.')
 prompt_dns_setts.append('Eg:8.8.8.8')
 prompt_dns_setts.append('Or:8.8.8.8 9.9.9.9')
-
-
-prompt_ip_setings_ready = []
-
 prompt_gw_ip = 'To configure static network settings, enter now the IP address of your Gateway/Router:'
 
 # Prompt says, that the IP settings are being delivered.
+prompt_ip_setings_ready = []
 prompt_ip_setings_ready.append(
     'The settings have been writen to the network configuration files. '
     'RPi is rebooting...')
-    # 'but they are not active yet.')
-# prompt_ip_setings_ready.append('In order to activate the settings, you need to reboot your Raspberry Pi.')
-# prompt_ip_setings_ready.append('(Eg. by typing:)')
-# prompt_ip_setings_ready.append('reboot<ENTER>')
-# prompt_ip_setings_ready.append(
-#     'If you do not want the settings to become active after reboot, '
-#     'run the program again now.')
 
 # These netmasks are invalid to be set for the host.
 banned_netmasks = ('0.0.0.0', '255.255.255.254', '255.255.255.255')

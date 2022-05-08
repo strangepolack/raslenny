@@ -1,22 +1,19 @@
 import sys
 sys.dont_write_bytecode = True  # No '*.pyc' precompiled files
+
 from rich import print
-# print('=', )
-
 from time import sleep
-
 import os
 import socket
 import paramiko
 from paramiko.ssh_exception import AuthenticationException
-
 from fabric import Connection
 from invoke import Responder
-
 from lib_main import findkey
 from lib_main import transform_string
 from lib_local_factory import factory
 from lib_parameters import lenny_dir
+
 banned_start_of_commands = ('cd', 'alias', 'asterisk', 'ping')
 banned_commands = ('python',)
 
@@ -225,7 +222,6 @@ class FabricConnection:
         result = None
         exit_code = self.open()
         sleep(0.1)
-        # if exit_code is None and len(command) > 0 and self.conn_object is not None:
         if exit_code is None and self.conn_object is not None:
             if watcher is None:
                 result = self.conn_object.run(
@@ -234,7 +230,6 @@ class FabricConnection:
                 result = self.conn_object.run(
                     command, hide=hide, warn=warn, watchers=[watcher])
 
-        # elif len(command) == 0:
         elif len(command) == 0 and self.conn_object is not None:
             sleep(0.1)
 

@@ -1,12 +1,9 @@
 import sys
 sys.dont_write_bytecode = True  # No '*.pyc' precompiled files
-
 import paramiko
 from getpass import getpass
-
 from lib_parameters import lenny_dir
 from action_local_connect import FabricConnection
-
 
 RPI_MAC_START = 'b827'
 

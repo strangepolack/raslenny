@@ -1,12 +1,10 @@
 import sys
 sys.dont_write_bytecode = True  # No '*.pyc' precompiled files
 from rich import print
-# print('=', )
 
 import re
 from time import ctime
 from socket import gaierror, gethostbyname, gethostbyaddr
-# import scapy
 from netaddr import IPAddress
 from scapy.all import ICMP, IP, sr, srp, TCP, Ether, ARP
 
@@ -85,14 +83,12 @@ class Discover:
         try:
             get_host = gethostbyaddr(host)
             hostname = get_host[0].lower()
-            # hostname = gethostbyaddr(host)[0].lower()
             if '.' not in hostname:
                 hostname = ''.join([hostname, '.local'])
         except socket.herror as err:
             pass
             if verbose is True:
-                print('The hostname of the IP:', host, ' not found')#. Error code:', err)
-        # print('About to return hostname:', hostname, 'from host:', host)
+                print('The hostname of the IP:', host, ' not found')
         return hostname
 
     def current_subnet(self):
@@ -259,12 +255,9 @@ class Discover:
         return result_hosts
 
 
-
 def main():
     print('Library for discovery of hosts.')
-    disco_obj = Discover()
-    disco = disco_obj.fullscan(mac_start='', resolve=True)
+
 
 if __name__ == '__main__':
     main()
-

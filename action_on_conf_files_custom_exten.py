@@ -1,11 +1,8 @@
 #!/usr/bin/python
-# print('=', )
+
 import sys
-# no '*.pyc' precompiled files
-sys.dont_write_bytecode = True
+sys.dont_write_bytecode = True  # No '*.pyc' precompiled files
 import pathlib
-# import os
-# import platform
 
 from lib_main import transform_string
 from lib_main import ListOps
@@ -16,15 +13,8 @@ from lib_parameters import file_exten_addit
 from lib_parameters import file_exten_custom
 from lib_parameters import sounds_main_dir
 
-
-# upper_dir = os.path.basename(os.path.normpath(sounds_main_dir))
 upper_dir = pathlib.PurePath(sounds_main_dir).name
-# upper_dir = os.path.basename(os.path.normpath('/folderA/folderB/folderC/folderD/'))
 
-# from_pc = True
-# if 'Linux' not in platform.system():
-#     file_exten_addit  = local_test_dir + 'extensions_additional.conf'
-#     file_exten_custom = local_test_dir + 'extensions_custom.conf'
 
 def head_cust_dest():
     head = []
@@ -33,19 +23,18 @@ def head_cust_dest():
     head.append('')
     return head
 
+
 def tail_cust_dest():
     tail = []
     tail.append('[macro-parked-call]')
     return tail
 
+
 def body_cust_dest(list_custom_extens):
-    '''
-    '''
     body = []
     body.append('[customdests]')
     body.append('include => customdests-custom')
 
-    # for index, ext_name in enumerate(list_custom_extens):
     for index, elem in enumerate(list_custom_extens):
         ext_name =  elem.ext_name
         body.append(
@@ -71,14 +60,10 @@ def body_custom_extens(list_custom_extens, sounds_dir=''):
     '''
     lines_to_file_extens_cust = []
 
-    # index = 1
-    # for key, list_custom_extens['ext_name'] in list_custom_extens.items():
     for value in list_custom_extens:
-        # lines_to_file_extens_cust.append('[' + list_custom_extens['ext_name'][index] + ']')
         lines_to_file_extens_cust.append('[' + value.ext_name + ']')
         lines_to_file_extens_cust.append(
             'exten => talk,1,Set(i=${IF($["0${i}"="0' +
-            # str(list_custom_extens['num_of_recs'][index]) + '"]?' +
             str(value.how_many_dialogs) + '"]?' +
             str(value.jump) + ':$[0${i}+1])})')
         lines_to_file_extens_cust.append(

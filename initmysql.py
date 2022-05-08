@@ -1,8 +1,6 @@
 #!/usr/bin/python
-# print('=', )
-# No '*.pyc' precompiled files
 import sys
-sys.dont_write_bytecode = True
+sys.dont_write_bytecode = True  # No '*.pyc' precompiled files
 
 # Script to setup MariaDB remote connection.
 # Initially, the Python connector cannot be used to create privileges for the remote MySQL user,

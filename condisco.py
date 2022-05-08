@@ -1,8 +1,6 @@
 import sys
 sys.dont_write_bytecode = True  # No '*.pyc' precompiled files
 from rich import print
-# print('=', )
-
 from lib_parameters import lenny_dir
 from lib_local_discovery import Discover
 from action_local_connect import FabricConnection
@@ -14,10 +12,9 @@ from lib_main import positive_console
 
 user = 'root'
 password = 'raspberry'
-
 RPI_MAC_START = 'b827'
 
-# def show_hosts(mac_start='', resolve=True):
+
 def show_hosts(mac_start=RPI_MAC_START, resolve=True):
     ''' It shows all discovered_hosts connected.
     '''
@@ -28,31 +25,12 @@ def show_hosts(mac_start=RPI_MAC_START, resolve=True):
         negative_console.print('No discovered hosts found in your network!')
     else:
         positive_console.print('=' * 96)
-        # positive_console.print(
-        #     figlet_format(
-        #         'These are the discovered Raspberry PI hosts, '
-        #     'found in your network:', font="cybermedium"
-        #     ))
-        # positive_console.print(
-        #     figlet_format(
-        #         'These are the discovered Raspberry PI hosts, '
-        #     'found in your network:', font="cybermedium"
-        #     ))
-
         positive_console.print(figlet_format(
             'These are the discovered Raspberry PI hosts,',
             font="cybermedium"))
         positive_console.print(figlet_format('found in your network:',
             font="cybermedium"))
-        # positive_console.print(figlet_format('',
-        #     font="cybermedium"))
 
-
-
-        # print(
-        #     'These are the discovered Raspberry PI hosts, '
-        #     'found in your network:'
-        # )
         for index, discovered_host in enumerate(discovered_hosts):
             print('Host number:', index,
                 '  --IP address: ', discovered_host['ip_addr'],
@@ -81,11 +59,9 @@ def select_host(user, password, mac_start, auto=False, resolve=True):
                 final_host = discovered_hosts[int(option)]
                 print('Selected:', option)
         else:
-            # print('here3')
             final_host = discovered_hosts[0]
 
     if final_host != None:
-        # pass
         host = final_host['ip_addr']
         mac_addr = final_host['mac_addr']
         hostname = final_host['hostname']
@@ -101,11 +77,8 @@ def autoconnect(host='raspbx.local', user='root', password='raspberry'):
 def main():
     user = 'root'
     password = 'raspberry'
-    # show_hosts(mac_start=RPI_MAC_START, resolve=True)
     select_host(user, password, mac_start=RPI_MAC_START, auto=True, resolve=True)
-    # select_host(user, password, mac_start=RPI_MAC_START, auto=True, resolve=False)
+
 
 if __name__ == '__main__':
     main()
-
-

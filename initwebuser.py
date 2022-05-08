@@ -1,14 +1,8 @@
 #!/usr/bin/python
-# print('=', )
-# def xprint(*content, sep=''):
-#     return(print(*content, sep=sep))
 import sys
-# No '*.pyc' precompiled files
-sys.dont_write_bytecode = True
-
+sys.dont_write_bytecode = True  # No '*.pyc' precompiled files
 
 import re, time
-
 from lib_parameters import asterisk_db
 from lib_parameters import ampusers_table
 from lib_parameters import db_user
@@ -16,7 +10,6 @@ from lib_parameters import db_password
 from lib_parameters import host
 from lib_parameters import web_admin_name
 from lib_parameters import web_admin_sha
-
 from lib_mysql import MySqlConnector
 
 
@@ -56,7 +49,6 @@ class WebAdminInitiation:
         web_admin_table_fields = []
         web_admin_table_fields.append([
             web_admin_name, web_admin_sha, '', '', '', '*'])
-
         self.connector_to_asterisk_db.insert_into_table(
             table=ampusers_table, records=web_admin_table_fields)
         self.connector_to_asterisk_db.disconnect()
@@ -65,6 +57,8 @@ class WebAdminInitiation:
 def main():
     my_class = WebAdminInitiation(asterisk_db, ampusers_table)
     my_class.add_webadmin_to_ampusers_table()
+    print('The webuser added.')
+
 
 if __name__ == '__main__':
     main()

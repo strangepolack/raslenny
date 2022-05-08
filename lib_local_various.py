@@ -3,11 +3,8 @@ import sys
 sys.dont_write_bytecode = True  # No '*.pyc' precompiled files
 def xprint(*content, sep=''): return (print(*content, sep=sep));  # print with sep='' by def.
 
-# import os
-# import subprocess
-# import re
 from varname import argname
-# from varname import NonVariableArgumentError
+
 
 
 def showvar(var, inc='', exc=''):
@@ -67,15 +64,14 @@ def showvar(var, inc='', exc=''):
                     else:
                         for index, val in enumerate(var):
                             xprint('index=', index, '\tval=', repr(val))
-    # except:
-        # print('Error!')
+
     except NonVariableArgumentError as error:
         print('This variable cannot be evaluated. Error:', error)
     print('=' * 10)
 
 
 def main():
-    print('This is a local library.')
+    print('This is a library with various functions.')
 
 
 if __name__ == '__main__':

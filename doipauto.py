@@ -1,9 +1,7 @@
 #!/usr/bin/python
 import sys
-# no '*.pyc' precompiled files
-sys.dont_write_bytecode = True
+sys.dont_write_bytecode = True  # No '*.pyc' precompiled files
 import os
-
 from lib_parameters import line_in_dhcp_file
 from lib_parameters import dhcp_file
 from lib_parameters import interface_file

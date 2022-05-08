@@ -139,7 +139,6 @@ class IpSettings:
                                     Use 'ipv4_metric' in your calculations instead.
                                     Shows if the OS considers it a default gateway.
         '''
-        # active_ifaces = None
         ifaces_combined = combine_dicts(
             self.scapy_interfaces(),
             self.netifaces_interfaces(),
@@ -194,8 +193,6 @@ class IpSettings:
         ip_excls = ('127', '0', '255', '169.254')
 
         ifaces = self.active_ifaces()
-        # if verbose is True:
-        #     print('=' * 8)
         filtered_results = []
         if verbose is True:
             print('-' * 64)
@@ -231,19 +228,19 @@ class IpSettings:
                     for reason in reject_reasons:
                         negative_console.print('\t', reason)
                     print('-' * 64)
+
             else:  # Only if iface was not rejected for any reasons.
                 if verbose is True:
                     positive_console.print('Interface ', iface['name'],
                           'is valid.')
                 filtered_results.append(iface)
                 filtered_results.sort(reverse=False, key=lambda item: item['ipv4_metric'])
-        # if verbose is True:
-        #     print('=' * 8)
+
         if verbose is True:
             if len(filtered_results) == 0:
                 negative_console.print(
                     'No active interfaces connecting your PC were found!')
-            # elif
+
         return filtered_results
 
     def final_iface(self, verbose=True):
@@ -286,7 +283,6 @@ class IpSettings:
                 'gateway': gateway,
                 'subnet': subnet
             }
-            # print(figlet_format('Final IP and active interface settings',font="cybermedium"))
             positive_console.print('=' * 96)
             positive_console.print(
                 figlet_format(
@@ -294,11 +290,8 @@ class IpSettings:
                 ))
 
             if verbose is True:
-
                 positive_console.print('Interf. name:\t', name)
                 positive_console.print('Interf. descr.:\t', description)
-                # positive_console.print('ip:\t\t', ip)
-                # positive_console.print('ip:\t\t'+ str(ip))
                 positive_console.print('ip:\t\t', ip)
                 positive_console.print('netmask:\t', netmask)
                 positive_console.print('gateway:\t', gateway)
